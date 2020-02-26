@@ -110,8 +110,7 @@ rule find_buscos:
     output:
         blast=config["prefix"] + ".busco.blast"
     params:
-        prefix=config["prefix"],
-        minlength=config["blast_minlength"]
+        prefix=config["prefix"]
     resources:
         runtime=runtimer(2),
         mem_mb=mem_gb(4)
@@ -123,7 +122,10 @@ rule find_buscos:
 localrules: blast_to_bed
 rule blast_to_bed:
     input: rules.find_buscos.output.blast
-    output: temp(config["prefix"] + ".busco.hsp.bed")
+    output:
+        bed=temp(config["prefix"] + ".busco.hsp.bed")
+    params:
+        minlength=config["blast_minlength"]
     shell:
         "cut -f1,9,10 {input} "
         "| bedtools sort -i - "
