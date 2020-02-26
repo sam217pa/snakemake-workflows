@@ -24,6 +24,17 @@ def mosdepth_regions():
     else:
         return f"--by {reg}"
 
+#  ------------------------------------------------------------- TARGET
+rule all:
+    input: config["prefix"] + ".mosdepth.global.dist.txt"
+
+
+
+# --------------------------------------------------------------------
+# RULES
+# --------------------------------------------------------------------
+
+
 localrules: cleanup_reference
 rule cleanup_reference:
     input: config["reference"]
