@@ -132,7 +132,8 @@ rule blast_to_bed:
         "| awk '{{if($3-$2 > {params.minlength}) print}}' "
         " > {output}"
 
-#  --------------------------------------------------- compute coverage
+# --------------------------------------------------- compute coverage
+localrules: mosdepth
 rule mosdepth:
     input:
         cram=rules.map_reads.output.cram,
